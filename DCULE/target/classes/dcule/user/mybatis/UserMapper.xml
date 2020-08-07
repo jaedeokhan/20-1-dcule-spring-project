@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dcule.user.mybatis.UserMapper">
+
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="dcule.user.vo.User">
+		INSERT INTO user(userId, userPassword, userName, userEmail, userEmailHash, userEmailChecked)
+		VALUES (#{userId}, #{userPassword1}, #{userName}, #{userEmail}, 1, 0)
+	</insert>
+	
+	<!-- 회원가입 아이디 체크  -->
+	<select id="selectUserIdCount" parameterType="dcule.user.vo.User" resultType="int">
+		SELECT count(*) 
+		FROM user
+		WHERE userId = #{userId}	
+	</select> 
+	
+	<!-- 로그인 아이디, 비밀번호 체크 후 이름 반환   -->
+	<select id="selectLoginUserName" parameterType="dcule.user.vo.Authenticate" resultType="authenticate">
+		SELECT userId, userName
+		FROM user
+		WHERE userId = #{userId} 
+		AND userPassword = #{userPassword1}	
+	</select> 
+	
+	<!-- 개인정보 수정 위한 데이터 가져가기 -->
+	<select id="selectUser" parameterType="dcule.user.vo.User" resultType="user">
+		SELECT userId, userName, userEmail
+		FROM user
+		WHERE userId = #{userId}	
+	</select>
+	
+	<!-- 개인정보수정 -->
+	<update id="updateUser" parameterType="dcule.user.vo.User">
+		UPDATE user 
+		SET userPassword = #{userPassword1}, userName = #{userName}
+		WHERE userId = #{userId}
+	</update>
+	 
+</mapper>

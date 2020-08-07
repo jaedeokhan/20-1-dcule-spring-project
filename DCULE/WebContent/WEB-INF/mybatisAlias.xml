@@ -3,6 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="jung.spring.vo.Member" alias="member"/>
+		<typeAlias type="dcule.user.vo.User" alias="user"/>
+		<typeAlias type="dcule.user.vo.Authenticate" alias="authenticate"/>		
 	</typeAliases>
 </configuration>

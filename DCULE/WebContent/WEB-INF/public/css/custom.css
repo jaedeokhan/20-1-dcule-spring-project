@@ -1,0 +1,61 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+* {
+	font-family : 'Nanum Gothic';
+}
+h5 {
+	font-family : 'Noto Sans KR';
+	font-size : 15px;
+}
+h4 {
+	font-family : 'Noto Sans KR';
+}
+h3 {
+	font-family : 'Hanna';
+}
+h2 {
+	font-family : 'Hanna';
+}
+h1 {
+	font-family : 'Hanna';
+}
+.navbar-brand {
+	font-family: 'Black Han Sans', sans-serif;
+}
+/* 테이블 관련 디자인 처리 */
+thead th {
+	background-color : #006DCC;
+	color : white;
+	text-align : center;
+}
+tr td:first-child,
+tr th:first-child {
+	border-top-left-radius : 6px;
+	border-bottom-left-radius : 6px;
+}
+tr td:last-child,
+tr th:last-child {
+	border-top-right-radius : 6px;
+	border-bottom-right-radius : 6px;
+}
+/* 모달 팝업창 관련 디자인 정의 */
+.vertical-alignment-helper { 
+	display : table;
+	height : 100%;
+	width : 100%;
+	pointer-events : none;
+}
+.vertical-alignment-center {
+	display : table-cell;
+	vertical-align : middle;
+	pointer-events : none;
+}
+.modal-content {
+	width : inherit;
+	height : inherit;
+	margin : 0 auto;
+	pointer-events : all;
+}

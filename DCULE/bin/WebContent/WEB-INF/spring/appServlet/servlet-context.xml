@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	<!-- 이 설정을 통해서 URL 매핑이 일어난다.  -->
+	<!-- 요 놈을 통해서 @RequestMapping을 사용할 수 있게 되고, @RequestMapping에 지정된 URL로 브라우저의 요청 URL이 매핑되게 된다. -->
+	<!-- 지우면 URL을 찾을 수 없다는 오류가 발생한다. -->
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- Controller 에서 Model, View를 리턴 받으면 view가 home 일때 -->
+	<!-- InternalResourceViewResolver를 통해 뷰를 찾게 된다. -->
+	<!--/WEB-INF/views + home + .jsp 경로를 만들게 되고, 뷰 이름은 DispatcherServlet으로 전달된다. -->
+	
+	<resources mapping="/css/**" location="/WEB-INF/public/css/"/>
+	<resources mapping="/js/**" location="/WEB-INF/public/js/"/>
+	
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/"/>
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	<!--/WEB-INF/views/hello.jsp  -->
+	
+	<!-- <context:component-scan base-package="com.test.controller" /> -->
+	<!-- @Controller, @Repository, @Service, @Component 어노테이션이 사용된 클래스를 자동으로 스캔하여 빈으로 등록한다 -->
+	<!-- 즉 jung.spring 패키지 아래에서 어노테이션이 사용된 클래스를 찾아서 빈으로 등록하겠다는 뜻이다 -->
+	<!-- <context:component-scan base-package="jung.spring" /> -->
+	<context:component-scan base-package="dcule.user"/>
+	
+</beans:beans>
