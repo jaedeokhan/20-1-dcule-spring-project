@@ -4,7 +4,7 @@
 <!-- 로그인 x => 메인, 로그인, 회원가입 -->
 <!-- 로그인 O => 메인, 로그아웃, 개인정보수정 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="/DCULE/user/main/form">DCULE</a>
+	<a class="navbar-brand" href="/DCULE/evaluation/main/form">DCULE</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbar">
 		<span class="navbar-toggler-icon"></span>
@@ -12,14 +12,7 @@
 	<div class="collapse navbar-collapse" id="navbar">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item"><a class="nav-link"
-				href="/DCULE/user/main/form">메인</a></li>
-<%-- 			<!-- jstl if/else 구문 -->
-			<c:choose>
-			<c:when test="${empty sessionScope.userId}">
-			</c:when>
-			<c:otherwise>
-			</c:otherwise>
-			</c:choose>	 --%>
+				href="/DCULE/evaluation/main/form">메인</a></li>
 			<c:if test="${empty sessionScope.userId}">	
 				<li class="nav-item"><a class="nav-link"
 					href="/DCULE/user/login/form">로그인</a></li>

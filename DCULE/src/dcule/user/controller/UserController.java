@@ -33,22 +33,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	// 강의평가 메인
-	@RequestMapping("/main/form")
-	public ModelAndView main(ModelAndView mav) {
-		log.debug("main 성공");
-		mav.setViewName("user/main");
-		return mav;
-	}
-	
 	// 회원가입 form, confirm
 	@RequestMapping("/join/form")
-	public String userRegisterForm(Model model) {
+	public ModelAndView userRegisterForm(ModelAndView mav) {
 		log.debug("test 성공");
-		model.addAttribute("user", new User()); // 입력 폼과 매핑
-		return "user/userJoin";
-	}						
-	
+		mav.addObject("user", new User()); // 입력 폼과 매핑
+		mav.setViewName("user/userJoin");
+		return mav;
+	}	
+		
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String userRegisterConfirm(@Valid User user, BindingResult bindingResult) { // 유효성 테스트
 		log.debug("User : {} " + user);
@@ -63,7 +56,7 @@ public class UserController {
 		// INSERT 
 		userService.addUser(user);
 		System.out.println("insert complete!");
-		return "user/userJoin";
+		return "redirect:/user/login/form";
 		
 	}
 	
@@ -77,7 +70,7 @@ public class UserController {
 		return data;	
 	}
 	
-	// 로그인 
+	// 로그인  폼
 	@RequestMapping(value="/login/form")
 	public ModelAndView userLogin(ModelAndView mav) {
 		log.debug("Login Form===================");
@@ -86,6 +79,7 @@ public class UserController {
 		return mav;
 	}	
 	
+	// 로그인
 	@RequestMapping(value="/login")
 	public String userLoginForm(@Valid Authenticate auth, BindingResult bindingResult, Model model, HttpSession session) {
 		log.debug("Login Action===================");
@@ -100,7 +94,7 @@ public class UserController {
 		} else { // 로그인 성공
 			// TODO 성공 처리 : 세션에 사용자 정보 저장
 			session.setAttribute("userId", authenticate.getUserId());
-			return "redirect:/user/main/form";
+			return "redirect:/evaluation/main/form";
 		}
 	}
 	
@@ -111,12 +105,27 @@ public class UserController {
 		return "redirect:/user/login/form";
 	}
 	
-	// 회원개인정보수정
+	// 회원개인정보수정 폼
 	@RequestMapping(value="/{userId}/info/form") 
-	public String updateFrom(@PathVariable String userId, Model model) {
+	public String updateFrom(@PathVariable String userId, User user_, Model model, HttpSession session) {
 		if (userId == null) { // userId 가 안넘어올때
 			throw new IllegalArgumentException("사용자 아이디가 필요합니다.");
 		}
+		
+		Object temp = session.getAttribute("userId");
+		if (temp == null) { // 세션에 userId가 없을때
+			session.setAttribute("loginErrorType","오류 메시지");
+			session.setAttribute("loginErrorContent", "로그인을 해주세요.");
+			return "redirect:/user/login/form";
+		}
+		
+		String userId_ = (String)temp; 
+		if (!user_.matchUserId(userId_)) { // 현재 세션의 userId와 사용자의 userId 세션을 비교 
+			session.setAttribute("loginErrorType","오류 메시지");
+			session.setAttribute("loginErrorContent", "로그인을 해주세요.");
+			return "redirect:/user/login/form";
+		}
+		
 		User user = userService.findById(userId);
 		model.addAttribute("user", user);
 		return "user/userForm";
@@ -137,12 +146,16 @@ public class UserController {
 		
 		Object temp = session.getAttribute("userId");
 		if (temp == null) { // 세션에 userId가 없을때
-			throw new NullPointerException();
+			session.setAttribute("loginErrorType","오류 메시지");
+			session.setAttribute("loginErrorContent", "로그인을 해주세요.");
+			return "redirect:/user/login/form";
 		}
 		
 		String userId = (String)temp; 
 		if (!user.matchUserId(userId)) { // 현재 세션의 userId와 사용자의 userId 세션을 비교 
-			throw new NullPointerException();
+			session.setAttribute("loginErrorType","오류 메시지");
+			session.setAttribute("loginErrorContent", "로그인을 해주세요.");
+			return "redirect:/user/login/form";
 		}
 		
 		userService.modifyUser(user);

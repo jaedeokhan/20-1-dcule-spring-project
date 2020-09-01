@@ -118,7 +118,7 @@
 						<!-- userEmail -->
 						<label class="control-label" for="userEmail">이메일 </label>
 						<div class="controls">
-									<form:input path="userEmail" placeholder="이메일을 입력해주세요"
+									<form:input path="userEmail" placeholder="이메일을 입력해주세요a"
 										class="form-control" />
 									<p class="help-block">
 										<form:errors path="userEmail" cssClass="error" />
@@ -136,56 +136,6 @@
 				</form:form>
 			</article>
 		</div>
-	</div>
-	<%
-		String messageContent = null;
-		if (session.getAttribute("messageContent") != null) {
-			messageContent = (String) session.getAttribute("messageContent");
-		}
-		String messageType = null;
-		if (session.getAttribute("messageType") != null) {
-			messageType = (String) session.getAttribute("messageType");
-		}
-		if (messageContent != null) { /* messageContent가 존재 */
-	%>
-	<!-- regist 후 panel-waring or panel-success 구분 -->
-	<div class="modal fade" id="messageModal" tabindex="-1" role="dialog"
-		aria-hidden="true">
-		<div class="vertical-alignment-helper">
-			<div class="modal-dialog vertical-alignment-center">
-				<div
-					class="modal-content <%if (messageType.equals("오류 메시지"))
-					out.println("panel-warning");
-				else
-					out.println("panel-success");%>">
-					<div class="modal-header panel-heading">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">&times;</span>
-							<!-- &times == x버튼에 해당하는 그림 -->
-							<span class="sr-only">Close</span>
-						</button>
-						<h4 class="modal-title">
-							<%=messageType%>
-						</h4>
-					</div>
-					<div class="modal-body">
-						<%=messageContent%>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script>
-		$('#messageModal').modal("show");
-	</script>
-	<%
-		session.removeAttribute("messageContent");
-			session.removeAttribute("messageType");
-		}
-	%>>
 	</div>
 	<%@ include file="/WEB-INF/views/_footer.jspf"%>
 </body>

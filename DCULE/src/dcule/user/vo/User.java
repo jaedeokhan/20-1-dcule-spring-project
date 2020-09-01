@@ -93,11 +93,11 @@ public class User {
 	 * return authenticate.matchPassword(this.userPassword1); }
 	 */
 	
-	public boolean matchUserId(String inputUserId) {
-		if (inputUserId == null) {
+	public boolean matchUserId(String sessionUserId) {
+		if (sessionUserId == null) {
 			return false;
 		}
-		return inputUserId.equals(this.userId); 
+		return sessionUserId.equals(this.userId); 
 	}
 	
 	public User update(User updateUser) {

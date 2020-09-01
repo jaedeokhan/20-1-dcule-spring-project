@@ -13,18 +13,6 @@
 <%@ include file="/WEB-INF/views/_header.jspf"%>
 </head>
 <body>
-	<%
-		String userID = null;
-		if (session.getAttribute("userID") != null) {
-			userID = (String) session.getAttribute("userID");
-		}
-		if (userID != null) { /* 로그인 상태라면 */
-			session.setAttribute("messageType", "오류 메시지");
-			session.setAttribute("messageContent", "현재 로그인이 되어있는 상태입니다.");
-			response.sendRedirect("index.jsp");
-			return;
-		}
-	%>
 <!-- nav bar -->
 <%@ include file="/WEB-INF/views/_top.jspf"%>
 	<div class="container">
@@ -88,38 +76,37 @@
 		</div>
 	</div>
 	<%
-		String messageContent = null;
-		if (session.getAttribute("messageContent") != null) {
-			messageContent = (String) session.getAttribute("messageContent");
+		String loginErrorContent = null;
+		if (session.getAttribute("loginErrorContent") != null) {
+			loginErrorContent = (String) session.getAttribute("loginErrorContent");
 		}
-		String messageType = null;
-		if (session.getAttribute("messageType") != null) {
-			messageType = (String) session.getAttribute("messageType");
+		String loginErrorType = null;
+		if (session.getAttribute("loginErrorType") != null) {
+			loginErrorType = (String) session.getAttribute("loginErrorType");
 		}
-		if (messageContent != null) { /* messageContent가 존재 */
+		if (loginErrorContent != null) { /* messageContent가 존재 */
 	%>
 	<!-- regist 후 panel-waring or panel-success 구분 -->
-	<div class="modal fade" id="messageModal" tabindex="-1" role="dialog"
+	<div class="modal fade" id="loginErrorModal" tabindex="-1" role="dialog"
 		aria-hidden="true">
 		<div class="vertical-alignment-helper">
 			<div class="modal-dialog vertical-alignment-center">
 				<div
-					class="modal-content <%if (messageType.equals("오류 메시지"))
+					class="modal-content panel <%if (loginErrorType.equals("오류 메시지"))
 					out.println("panel-warning");
 				else
 					out.println("panel-success");%>">
 					<div class="modal-header panel-heading">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">&times;</span>
-							<!-- &times == x버튼에 해당하는 그림 -->
-							<span class="sr-only">Close</span>
-						</button>
-						<h4 class="modal-title">
-							<%=messageType%>
+						<h4 class="modal-title" style="text-align: center;">
+							<%=loginErrorType%>
 						</h4>
+						<button type="button" class="close btn pull-right"
+							data-dismiss="modal">
+							<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+						</button>
 					</div>
 					<div class="modal-body">
-						<%=messageContent%>
+						<%=loginErrorContent%>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
@@ -129,13 +116,13 @@
 		</div>
 	</div>
 	<script>
-		$('#messageModal').modal("show");
+		$('#loginErrorModal').modal("show");
 	</script>
 	<%
-		session.removeAttribute("messageContent");
-			session.removeAttribute("messageType");
+			session.removeAttribute("loginErrorContent");
+			session.removeAttribute("loginErrorType");
 		}
-	%>
+	%>	
 	<%@ include file="/WEB-INF/views/_footer.jspf"%>
 </body>
 </html>

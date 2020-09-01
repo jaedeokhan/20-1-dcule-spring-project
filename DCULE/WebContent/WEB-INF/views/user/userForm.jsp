@@ -15,50 +15,8 @@ form {
 }
 </style>
 <%@ include file="/WEB-INF/views/_header.jspf"%>
-<script type="text/javascript">
-	function registerCheckFunction() {
-		var userId = $('#userId').val(); /* 현재 사용자가 입력한 userID 의 값을 가져온다.*/
-		$.ajax({ /* ajax를 이용한 비동기통신 */
-			type : 'POST',
-			url : './idCheck',
-			data : {
-				userId : userId
-			},
-			success : function(data) {
-				if (data == 1) {
-					$("#id_check").text("사용중인 아이디입니다 :p");
-					$("#id_check").css("color", "red");
-				} else {
-					$("#id_check").text("사용가능한 아이디입니다 :p");
-					$("#id_check").css("color", "blue");
-				}
-			}
-		});
-	}
-	function passwordCheckFunction() {
-		var userPassword1 = $('#userPassword1').val();
-		var userPassword2 = $('#userPassword2').val();
-		if (userPassword1 != userPassword2) {
-			$('#passwordCheckMessage').html('비밀번호와 비밀번호확인을 동일하게 입력해주세요.');
-		} else {
-			$('#passwordCheckMessage').html('');
-		}
-	}
-</script>
 </head>
 <body>
-	<%
-		String userID = null;
-		if (session.getAttribute("userID") != null) {
-			userID = (String) session.getAttribute("userID");
-		}
-		if (userID != null) { /* 로그인 상태라면 */
-			session.setAttribute("messageType", "오류 메시지");
-			session.setAttribute("messageContent", "현재 로그인이 되어있는 상태입니다.");
-			response.sendRedirect("index.jsp");
-			return;
-		}
-	%>
 	<!-- css, js link -->
 	<%@ include file="/WEB-INF/views/_top.jspf"%>
 	<div class="container">

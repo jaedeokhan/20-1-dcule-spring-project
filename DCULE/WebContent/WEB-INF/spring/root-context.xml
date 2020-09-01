@@ -31,7 +31,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 아래부분은 매핑할 xml파일이 있는 패키지경로를 설정한다. -->
 		<!-- <property name="typeAliasesPackage" value="jung.spring.mybatis" /> -->
-		<property name="mapperLocations" value="classpath:dcule/user/mybatis/*.xml" />
+		<property name="mapperLocations" value="classpath:dcule/*/mybatis/*.xml" />
 		<property name="configLocation" value="/WEB-INF/mybatisAlias.xml"></property>
 		<!-- typeAlias 사용할 때 -->
 	</bean>

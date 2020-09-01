@@ -6,7 +6,11 @@
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
 <link type="text/css" rel="stylesheet"
-	href="<c:url value='/css/custom.css?ver=5' />">
+	href="<c:url value='/css/custom.css?ver=6'/>">
+<link type="text/css" rel="stylesheet"
+	href="<c:url value='/css/bootstrap-3.3.7-panel.css'/>">
+<!-- images css -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 <style type="text/css">
 .help-block {
 	color: red;
@@ -16,6 +20,14 @@
 	color : blue;
 	font-size : 14px;
 	font-weight : bold;
+}
+.panel-warning {
+	width : 60%;
+	heigth : 30 %;
+}
+.panel-success {
+	width : 60%;
+	heigth : 30 %;
 }
 </style>
 <!-- jquery, bootstrap, popper js-->
